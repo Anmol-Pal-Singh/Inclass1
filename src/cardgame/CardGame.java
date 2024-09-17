@@ -8,6 +8,8 @@ Student_id-991741917*/
 package cardgame;
 
 import java.util.Random;
+import java.util.Scanner;
+
 
 public class CardGame {
       
@@ -38,10 +40,36 @@ public class CardGame {
             System.out.println(card.getValue() + " of " + card.getSuit());
         }
     }
+    public boolean searchCard(Card.Value value, Card.Suit suit) {
+        for (Card card : hand) {
+            if (card.getValue() == value && card.getSuit() == suit) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public static void main(String[] args) {
         CardGame game = new CardGame();
         game.printHand();
+         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Pick a card value (ACE, TWO, THREE, ... KING):");
+        String valueInput = scanner.nextLine().toUpperCase();
+        Card.Value selectedValue = Card.Value.valueOf(valueInput);
+
+        System.out.println("Pick a suit (HEARTS, CLUBS, SPADES, DIAMONDS):");
+        String suitInput = scanner.nextLine().toUpperCase();
+        Card.Suit selectedSuit = Card.Suit.valueOf(suitInput);
+
+        // Search for the card in the hand
+        if (game.searchCard(selectedValue, selectedSuit)) {
+            System.out.println("Your card is in the magic hand!");
+        } else {
+            System.out.println("Your card is NOT in the magic hand.");
+        }
     }
-    
 }
+    
+    
+
